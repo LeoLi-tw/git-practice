@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+# 觸發時機：只有當程式碼正式併入 main 分支時才執行部署
+on:
+  push:
+    branches: [ "main" ]
+
+# 賦予機器人寫入 GitHub Pages 的權限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
