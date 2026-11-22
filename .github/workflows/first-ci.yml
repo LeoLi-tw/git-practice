@@ -24,3 +24,10 @@ jobs:
           ls -la
           cat hello.txt
           echo "檢查完畢，一切正常！"
+      - name: Check hello.txt exists
+        run: |
+          echo "開始檢查專案檔案..."
+          ls -la
+          cat hello.txt
+          cat missing-file.txt
+          echo "檢查完畢，一切正常！"
