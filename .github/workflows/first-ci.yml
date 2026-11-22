@@ -1,0 +1,26 @@
+name: My First CI Pipeline
+
+# 觸發時機：當有程式碼 push 到 main，或有人發起針對 main 的 PR 時
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check-project:
+    # 向 GitHub 借一台最新的 Ubuntu Linux 虛擬機
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步驟 1：使用官方寫好的工具，把你的專案程式碼下載到虛擬機裡
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 步驟 2：執行自訂檢查指令（模擬自動化測試）
+      - name: Check hello.txt exists
+        run: |
+          echo "開始檢查專案檔案..."
+          ls -la
+          cat hello.txt
+          echo "檢查完畢，一切正常！"
